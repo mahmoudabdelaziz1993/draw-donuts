@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box,  TextField, Button, makeStyles } from '@material-ui/core'
+import { Box, TextField, Button, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
@@ -7,43 +7,43 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        padding:"40px"
 
     }, actions: {
         display: "flex",
         width: "100%",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
     }, row: {
         display: "flex",
         width: "100%",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         margin: '10px',
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        alignItems:'flex-end'
     }
 })
-function NewChart({data}) {
+function NewChart({ data }) {
     const classes = useStyles()
 
-    // const [entries, setEntries] = useState(3)
-    // const [label, setLabels] = useState([])
-    // const [maxPersantage, setMaxPersantage] = useState(100)
-    // const [persantage, setPersantage] = useState([])
-    // const [color, setColor] = useState([])
-    console.log('object :',{data})
+
     let { entries, label, maxPersantage, persantage
-        , color, handleEntries, handleLabels, handlePersantage, handleColor } =  data
- console.log({ entries, label, maxPersantage, persantage
-    , color, handleEntries, handleLabels, handlePersantage, handleColor })
+        , color, handleEntries, handleLabels, handlePersantage, handleColor, handelPreview, handelsubmit } = data
+
 
     return (
 
-        <form className={classes.root} >
+        <form id="Graph-form" className={classes.root} onSubmit={handelsubmit} >
             <TextField
                 label="number of entries"
                 name="entries"
                 type="number"
                 value={entries}
                 onChange={handleEntries}
+                inputProps={{
+                    min: 2, max: 10
+                }}
+                fullWidth={true}
 
             />
             {[...Array(entries)].map((value, i) => {
@@ -64,12 +64,11 @@ function NewChart({data}) {
                             name={`${i}`}
                             type="number"
                             inputProps={{
-                                min: 0, max: maxPersantage
+                                min: 0, max: 100
                             }}
                             size='small'
                             required={true}
-
-                            onBlur={handlePersantage}
+                            onChange={handlePersantage}
                         />
                         < TextField
                             key={` color ${i + 1} `}
@@ -79,7 +78,7 @@ function NewChart({data}) {
                             value={color[i]}
                             size='medium'
                             style={{ width: "30px" }}
-                            
+
                             onChange={handleColor}
                             required={true}
                         />
@@ -94,7 +93,7 @@ function NewChart({data}) {
 
             <Box m={2} className={classes.actions}>
                 <Button type="submit" variant="contained" color="primary" > save </Button>
-                <Button type="submit" variant="contained" color="secondary" > Preview </Button>
+                <Button onClick={handelPreview} variant="contained" color="secondary" > Preview </Button>
 
             </Box>
 

@@ -40,7 +40,7 @@ type Query{
 
 
 type Mutation{
-    createUser(input: UserInput): User
+    createUser(input: UserInput): AuthData
     createGraph (labels: [String!]!,data: [Int!]!, backgroundColor: [String!]!) : User
     deleteGraph (id :ID!) : User
 }
