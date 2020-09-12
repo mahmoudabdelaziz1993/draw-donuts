@@ -62,7 +62,7 @@ export const setsnack = ({ open, type, message }) => async dispatch => {
 
 }
 
-const serverurl = "http://localhost:4000/graphql"
+const serverurl = "/graphql"
 
 export const login = ({ email, password }) => async dispatch => {
     try {

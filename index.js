@@ -22,7 +22,15 @@ mongoose.connection.once('open', () => console.log("🚀 connected to mongo db s
 app.use('/graphql', graphqlHTTP({ schema: appSchema, rootValue: appResolvers, graphiql: true }));
 
 
-
+if (process.env.NODE_ENV === "production"){
+    // express will serve production assets
+    app.use(express.static('front-end/build'));
+    // if it doesn't recognize the route 
+    const path = require('path');
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'front-end','build','index.html'));
+    });
+}
 
 
 app.listen(process.env.PORT, () => {
